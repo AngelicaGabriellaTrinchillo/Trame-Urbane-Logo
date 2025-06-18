@@ -7,6 +7,11 @@ let lista_mezzo = [];
 /** @type {SVGImage[]} */
 let lista_sopra = [];
 
+let lista_colori = [
+  ["red", "blue", "green"],
+  ["yellow", "pink", "black"],
+];
+
 function preload() {
   lista_sotto = [
     loadSVG("./assets/sotto/Glos-01.svg"),
@@ -58,19 +63,21 @@ function setup() {
 function draw() {
   clear(); // Non cancellare!
 
+  let combinazione = random(lista_colori);
+
   let randomsotto = random(lista_sotto);
   removeStyles(randomsotto);
-  fillSVG(randomsotto, "red");
+  fillSVG(randomsotto, combinazione[0]);
   image(randomsotto, width / 2, height / 2, 300, 300);
 
   let randommezzo = random(lista_mezzo);
   removeStyles(randommezzo);
-  fillSVG(randommezzo, "green");
+  fillSVG(randommezzo, combinazione[1]);
   image(randommezzo, width / 2, height / 2, 300, 300);
 
   let random_sopra = random(lista_sopra);
   removeStyles(random_sopra);
-  fillSVG(random_sopra, "yellow");
+  fillSVG(random_sopra, combinazione[2]);
   image(random_sopra, width / 2, height / 2, 300, 300);
 }
 
