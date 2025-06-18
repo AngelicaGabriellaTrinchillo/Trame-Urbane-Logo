@@ -1,0 +1,1 @@
+/** @typedef {import("./index").Image} p5Image */

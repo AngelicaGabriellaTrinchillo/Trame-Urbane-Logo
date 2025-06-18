@@ -82,6 +82,15 @@ function noStrokeSVG(svg) {
 /**
  * @param {SVGImage} svg
  */
+function removeStyles(svg) {
+  getSVGPaths(svg).forEach((el) => {
+    el.elt.setAttribute("class", "");
+  });
+}
+
+/**
+ * @param {SVGImage} svg
+ */
 function resetSVG(svg) {
   svg.attribute("fill", "black");
   svg.attribute("stroke", "none");
