@@ -7,10 +7,28 @@ let lista_mezzo = [];
 /** @type {SVGImage[]} */
 let lista_sopra = [];
 
-let lista_colori = [
-  ["red", "blue", "green"],
-  ["yellow", "pink", "black"],
+let lista_scuri = [
+  "#0b0d0e",
+  "#13457a",
+  "#3074b9",
+  "#493b50",
+  "#ab2d75",
+  "#12604a",
+  "#4d65aa",
+  "#a81f22",
 ];
+let lista_brillanti = [
+  "#f26722",
+  "#b0c642",
+  "#f8b617",
+  "#ffe100",
+  "#ED0678",
+  "#42b5ae",
+  "#e62a35",
+  "#188742",
+];
+
+let lista_chiari = ["#c7875d", "#e9bda9", "#8f97a2", "#9ebbc8", "#84a1d3"];
 
 function preload() {
   lista_sotto = [
@@ -50,35 +68,52 @@ function preload() {
   ];
 
   lista_mezzo = loadGroup("mezzo", 34, 96);
-  lista_sopra = loadGroup("sopra", 97, 121);
+  lista_sopra = loadGroup("sopra", 97, 129);
 }
 
 function setup() {
-  createCanvas(400, 400, SVG);
-  addDownloadButton();
+  createCanvas(windowWidth, windowHeight, SVG);
   imageMode(CENTER);
   noLoop(); // Opzionale
+
+  createButton("Download Image")
+    .mouseClicked(() => {
+      save("trame-urbane.png");
+    })
+    .position(10, 10);
+
+  createButton("Rigenera")
+    .mouseClicked(() => {
+      redraw();
+    })
+    .position(10, 40);
 }
 
 function draw() {
   clear(); // Non cancellare!
 
-  let combinazione = random(lista_colori);
+  let image_size = height * 0.8;
+
+  let random_scuro = random(lista_scuri);
+  let random_brillanti = random(lista_brillanti);
+  let random_chiari = random(lista_chiari);
+
+  let combinazione = shuffle([random_scuro, random_brillanti, random_chiari]);
 
   let randomsotto = random(lista_sotto);
   removeStyles(randomsotto);
   fillSVG(randomsotto, combinazione[0]);
-  image(randomsotto, width / 2, height / 2, 300, 300);
+  image(randomsotto, width / 2, height / 2, image_size, image_size);
 
   let randommezzo = random(lista_mezzo);
   removeStyles(randommezzo);
   fillSVG(randommezzo, combinazione[1]);
-  image(randommezzo, width / 2, height / 2, 300, 300);
+  image(randommezzo, width / 2, height / 2, image_size, image_size);
 
   let random_sopra = random(lista_sopra);
   removeStyles(random_sopra);
   fillSVG(random_sopra, combinazione[2]);
-  image(random_sopra, width / 2, height / 2, 300, 300);
+  image(random_sopra, width / 2, height / 2, image_size, image_size);
 }
 
 /**
@@ -97,4 +132,9 @@ function loadGroup(name, start, end) {
     );
   }
   return group;
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+  redraw();
 }
