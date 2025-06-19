@@ -1,3 +1,6 @@
+/** @type {SVGImage} */
+let logo;
+
 /** @type {SVGImage[]} */
 let lista_sotto = [];
 
@@ -31,6 +34,8 @@ let lista_brillanti = [
 let lista_chiari = ["#c7875d", "#e9bda9", "#8f97a2", "#9ebbc8", "#84a1d3"];
 
 function preload() {
+  logo = loadSVG("./assets/logo/logo-def.svg");
+
   lista_sotto = [
     loadSVG("./assets/sotto/Glos-01.svg"),
     loadSVG("./assets/sotto/Glos-02.svg"),
@@ -78,7 +83,7 @@ function setup() {
 
   createButton("Download Image")
     .mouseClicked(() => {
-      save("trame-urbane.png");
+      save("trame-urbane");
     })
     .position(10, 10);
 
@@ -114,6 +119,11 @@ function draw() {
   removeStyles(random_sopra);
   fillSVG(random_sopra, combinazione[2]);
   image(random_sopra, width / 2, height / 2, image_size, image_size);
+
+  let r = 300 / 118;
+  let logo_h = height / 14;
+  let logo_w = logo_h * r;
+  image(logo, width / 2, height - logo_h / 2, logo_w, logo_h);
 }
 
 /**
